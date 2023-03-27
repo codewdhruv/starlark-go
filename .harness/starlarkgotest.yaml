@@ -38,6 +38,9 @@ pipeline:
                   identifier: Checkout_code
                   spec:
                     uses: actions/checkout@v2
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
               - step:
                   type: Run
                   name: Run Tests
@@ -45,3 +48,6 @@ pipeline:
                   spec:
                     shell: Bash
                     command: "'internal/test.sh'"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
