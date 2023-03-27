@@ -1,0 +1,47 @@
+pipeline:
+  name: starlark-go-test
+  identifier: starlarkgotest
+  projectIdentifier: NgLabs
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnectordhruba
+        repoName: starlark-go
+        build: <+input>
+  stages:
+    - stage:
+        name: Starlark Go Tests
+        identifier: Starlark_Go_Tests
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Action
+                  name: Install Go
+                  identifier: Install_Go
+                  spec:
+                    uses: actions/setup-go@v2
+              - step:
+                  type: Action
+                  name: Checkout code
+                  identifier: Checkout_code
+                  spec:
+                    uses: actions/checkout@v2
+              - step:
+                  type: Run
+                  name: Run Tests
+                  identifier: Run_Tests
+                  spec:
+                    shell: Bash
+                    command: "'internal/test.sh'"
